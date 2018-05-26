@@ -1,19 +1,21 @@
 import sys
 from datetime import datetime, timedelta
-DATE_FORMAT = "%d/%m/%Y"
+from time import time
 from copy import deepcopy
 import plotly
 import plotly.plotly as py
 import plotly.graph_objs as go
-plotly.tools.set_credentials_file(username='bhuvan21', api_key='wSlOaVC9UvnoZk1rW4zr')
 from tqdm import tqdm
 from scipy import stats
+
+DATE_FORMAT = "%d/%m/%Y"
+
+plotly.tools.set_credentials_file(username='bhuvan21', api_key='wSlOaVC9UvnoZk1rW4zr')
 
 SUBJECT_CHANGE = "changed the subject to"
 DESC_CHANGE = "changed the group description"
 ICON_CHANGE = "changed this group's icon"
 
-from time import time
 
 start = time()
 
@@ -423,20 +425,3 @@ class Chat():
         fig = go.Figure(data=traces, layout=layout)
         return py.plot(fig, filename="test1")
         
-
-                
-
-
-
-
-
-chat = Chat("_chat_1.txt")
-chat.get_summary()
-
-
-#print(chat.get_blols())
-
-chat.all_time_graph("characters")
-
-#print(chat.names)
-#print(chat.generate_x_axis(chat.messages[0]["date"], chat.messages[-1]["date"]))
