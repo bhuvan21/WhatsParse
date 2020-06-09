@@ -29,9 +29,9 @@ class WhatsParse:
                 self.msgs[-1] = {"sender":last_msg["sender"], "body":last_msg["body"]+ "\n" + line, "date": last_msg["date"]}
 
     def graph_over_time(self, filterf):
+
         traces = [[[], []] for x in self.senders]
         startdate = self.msgs[0]["date"].date()
-
         dates = []
         index = 0
 
@@ -47,12 +47,11 @@ class WhatsParse:
                     trace[1].append(0)
 
             count = filterf(msg)
-
             traces[self.senders.index(msg["sender"])][1][-1] += count
             
-
         for trace in traces:
             plt.plot_date(trace[0], trace[1], "-")
+            
         for trace in traces:
             z = np.polyfit(trace[0], trace[1], 1)
             p = np.poly1d(z)
@@ -77,5 +76,7 @@ def word_count_filter(msg, word):
 
 # parses a whatsapp text file with name 'chat.txt'
 # then plots a graph of the use of the word 'the', separated by sender over time
-x = WhatsParse("chat.txt")
-x.graph_over_time(lambda x : word_count_filter(x, "the"))
+
+if __name__ == "__main__":
+    x = WhatsParse("chat.txt")
+    x.graph_over_time(lambda x : word_count_filter(x, "the"))
